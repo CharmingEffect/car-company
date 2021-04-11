@@ -1,5 +1,6 @@
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -93,8 +94,9 @@ public class BuyCar extends JFrame {
     }
 
     private void initGui() {
-        this.setTitle("Buy car");
-        this.setResizable(false);
+        this.setPreferredSize(new Dimension(600, 300));
+        this.setTitle("Choose and buy the car");
+        //this.setResizable(false);
         carListScroll = new JScrollPane();
         carList = new JList<>();
 
@@ -110,6 +112,8 @@ public class BuyCar extends JFrame {
         regYearCurrentLbl = new JLabel();
         mileageCurrentLbl = new JLabel();
 
+       
+
         // descriptionLbl.setFont (descriptionLbl.getFont ().deriveFont (64.0f));
 
         buyButton = new JButton("Buy This Car");
@@ -118,60 +122,77 @@ public class BuyCar extends JFrame {
 
         carListScroll.setViewportView(carList);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup().addGap(60, 60, 60).addComponent(labelInfo)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(layout.createSequentialGroup().addGap(24, 24, 24)
-                        .addComponent(carListScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 193,
-                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout
-                                .createSequentialGroup().addGap(47, 47, 47)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup().addComponent(descriptionLbl)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(descriptionCurrentLbl))
-                                        .addGroup(layout.createSequentialGroup().addComponent(priceLbl)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(priceCurrentLbl))
-                                        .addGroup(layout.createSequentialGroup().addComponent(regYearLbl)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(regYearCurrentLbl))
-                                        .addGroup(layout.createSequentialGroup().addComponent(mileageLbl)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(mileageCurrentLbl)))
-                                .addContainerGap(210, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-                                        layout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(buyButton).addGap(35, 35, 35)))));
-        layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout
-                .createSequentialGroup().addGap(33, 33, 33).addComponent(labelInfo).addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addComponent(carListScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 306,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(22, Short.MAX_VALUE))
-                        .addGroup(
-                                layout.createSequentialGroup().addGap(41, 41, 41)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(descriptionLbl).addComponent(descriptionCurrentLbl))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(priceLbl).addComponent(priceCurrentLbl))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(regYearLbl).addComponent(regYearCurrentLbl))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(mileageLbl).addComponent(mileageCurrentLbl))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(buyButton).addGap(45, 45, 45)))));
 
+        JPanel leftPanel = new JPanel(new GridLayout());
+        leftPanel.add(labelInfo);
+        leftPanel.add(carList);
+       
+       
+
+        JPanel rightPanel = new JPanel(new GridBagLayout());
+
+
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.anchor = GridBagConstraints.EAST;
+        constraints.insets = new Insets(10, 10, 10, 10);
+         
+        // add components to the panel
+        constraints.gridx = 0;
+        constraints.gridy = 0;     
+        rightPanel.add(descriptionLbl, constraints);
+ 
+        constraints.anchor = GridBagConstraints.WEST;
+        constraints.gridx = 1;
+        rightPanel.add(descriptionCurrentLbl, constraints);
+
+        constraints.anchor = GridBagConstraints.EAST; 
+        constraints.gridx = 0;
+        constraints.gridy = 1;     
+        rightPanel.add( priceLbl, constraints);
+
+        constraints.anchor = GridBagConstraints.WEST;
+        constraints.gridx = 1;
+        rightPanel.add(priceCurrentLbl, constraints);
+
+        constraints.anchor = GridBagConstraints.EAST; 
+        constraints.gridx = 0;
+        constraints.gridy = 2;     
+        rightPanel.add(regYearLbl, constraints);
+         
+        constraints.anchor = GridBagConstraints.WEST;
+        constraints.gridx = 1;
+        rightPanel.add(regYearCurrentLbl, constraints);
+
+        constraints.anchor = GridBagConstraints.EAST; 
+        constraints.gridx = 0;
+        constraints.gridy = 3;     
+        rightPanel.add( mileageLbl, constraints);
+
+        constraints.anchor = GridBagConstraints.WEST;
+        constraints.gridx = 1;
+        rightPanel.add(mileageCurrentLbl, constraints);
+
+       
+        constraints.gridx = 1;
+        constraints.gridy = 5;
+        constraints.gridwidth = 1;
+        constraints.anchor = GridBagConstraints.EAST;
+        rightPanel.add(buyButton, constraints);
+    
+
+
+
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,carList, rightPanel);
+        splitPane.setOneTouchExpandable(true);
+        splitPane.setDividerLocation(150);
+        this.getContentPane().add(splitPane, BorderLayout.CENTER);  
         
+        rightPanel.setBorder(BorderFactory.createTitledBorder(
+            BorderFactory.createEtchedBorder(), "Information about chosen car", TitledBorder.LEFT, TitledBorder.TOP));
+
+
+
+
 
         carList.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
@@ -184,7 +205,7 @@ public class BuyCar extends JFrame {
 
         buyButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                buyCarButtonAction(evt);
+                rentCarButtonAction(evt);
             }
         });
 
@@ -208,7 +229,7 @@ public class BuyCar extends JFrame {
         }
     }
 
-    private void buyCarButtonAction(ActionEvent evt) {
+    private void rentCarButtonAction(ActionEvent evt) {
         int selectedIndex = carList.getSelectedIndex();
        carsToBuy.remove(selectedIndex).setSold(true);
        removeCarFromFile();

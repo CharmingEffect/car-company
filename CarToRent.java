@@ -1,10 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
- 
-
 import java.io.*;
 
 /**
@@ -21,16 +14,16 @@ public class CarToRent extends Car implements Serializable {
     private int totalAccumulated;
     private boolean onLoan;
 
-    public CarToRent(int adminFee, int dailyRate, String carName, String description) {
+    public CarToRent(String rentalDate, String returnDate, int adminFee,  int numberOfDays, int dailyRate, int totalAccumulated, boolean onLoan,  String carName, String description) {
        
         super(description, carName);
-        this.rentalDate = "";
-        this.returnDate = "";
+        this.rentalDate = rentalDate;
+        this.returnDate = returnDate;
         this.adminFee = adminFee;
-        this.numberOfDays = 0;
+        this.numberOfDays = numberOfDays;
         this.dailyRate = dailyRate;
-        this.totalAccumulated = 0;
-        this.onLoan = false;
+        this.totalAccumulated = totalAccumulated;
+        this.onLoan = onLoan;
     }
 
     public String getRentalDate() {

@@ -52,11 +52,11 @@ public class AddCarToBuy extends JFrame
         mileageLabel = new JLabel("Mileage:");
         
         //fields
-        descriptionField = new JTextField();
-        priceField = new JTextField();
-        regYearField = new JTextField();
-        mileageField = new JTextField();
-        carNameField = new JTextField();
+        descriptionField = new JTextField(15);
+        priceField = new JTextField(15);
+        regYearField = new JTextField(15);
+        mileageField = new JTextField(15);
+        carNameField = new JTextField(15);
         
         addButton = new JButton("Add");
         
@@ -68,63 +68,73 @@ public class AddCarToBuy extends JFrame
        
     
         
-        // set up leayout for the components
-        
-   GroupLayout jPanel1Layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                    .addComponent(addButton)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                            .addComponent(mileageLabel)
-                            .addComponent(regYearLabel)
-                            .addComponent(priceLabel)
-                            .addComponent(descriptionLabel)
-                            .addComponent(nameLabel))
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                            .addComponent(descriptionField)
-                            .addComponent(priceField)
-                            .addComponent(regYearField)
-                            .addComponent(mileageField, GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
-                            .addComponent(carNameField))))
-                .addContainerGap(36, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(nameLabel))
-                    .addGroup(GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(carNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(descriptionLabel)
-                    .addComponent(descriptionField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(priceField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(priceLabel))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(regYearLabel)
-                    .addComponent(regYearField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
-                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(mileageField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mileageLabel))
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(addButton)
-                .addGap(35, 35, 35))
-        );
-        
+
+         
+        // create a new panel with GridBagLayout manager
+        JPanel newPanel = new JPanel(new GridBagLayout());
+         
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.anchor = GridBagConstraints.EAST;
+        constraints.insets = new Insets(10, 10, 10, 10);
+         
+        // add components to the panel
+        constraints.gridx = 0;
+        constraints.gridy = 0;     
+        newPanel.add(nameLabel, constraints);
+ 
+        constraints.gridx = 1;
+        newPanel.add(carNameField, constraints);
+         
+        constraints.gridx = 0;
+        constraints.gridy = 1;     
+        newPanel.add(descriptionLabel, constraints);
+         
+        constraints.gridx = 1;
+        newPanel.add(descriptionField, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 2;     
+        newPanel.add(priceLabel, constraints);
+         
+        constraints.gridx = 1;
+        newPanel.add(priceField, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 2;     
+        newPanel.add(priceLabel, constraints);
+         
+        constraints.gridx = 1;
+        newPanel.add(priceField, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 3;     
+        newPanel.add(regYearLabel, constraints);
+         
+        constraints.gridx = 1;
+        newPanel.add(regYearField, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 4;     
+        newPanel.add(mileageLabel, constraints);
+         
+        constraints.gridx = 1;
+        newPanel.add(mileageField, constraints);
+
+
+
+       
+        constraints.gridx = 1;
+        constraints.gridy = 5;
+        constraints.gridwidth = 1;
+        constraints.anchor = GridBagConstraints.EAST;
+        newPanel.add(addButton, constraints);
+    
+         
+        // add the panel to this frame
+        add(newPanel);
+         
+        pack();
+  
          addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 addButtonActionPerformed(e);

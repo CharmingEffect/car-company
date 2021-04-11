@@ -46,6 +46,7 @@ public class AddCarToRent extends JFrame
     
     // intittalization of the components of the graphical user interface
     private void initGui(){
+
         
         //labels
         
@@ -56,10 +57,10 @@ public class AddCarToRent extends JFrame
       
         
         //fields
-        carNameFld = new JTextField();
-        descriptionFld = new JTextField();
-        adminFeeFld = new JTextField();
-        dailyRateFld = new JTextField();
+        carNameFld = new JTextField(15);
+        descriptionFld = new JTextField(15);
+        adminFeeFld = new JTextField(15);
+        dailyRateFld = new JTextField(15);
       
         
         addButton = new JButton("Add");
@@ -72,58 +73,53 @@ public class AddCarToRent extends JFrame
        
     
         
-        // set up leayout for the components
+        JPanel newPanel = new JPanel(new GridBagLayout());
+         
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.anchor = GridBagConstraints.EAST;
+        constraints.insets = new Insets(10, 10, 10, 10);
+         
+        // add components to the panel
+        constraints.gridx = 0;
+        constraints.gridy = 0;     
+        newPanel.add(carNameLbl, constraints);
+ 
+        constraints.gridx = 1;
+        newPanel.add(carNameFld, constraints);
+         
+        constraints.gridx = 0;
+        constraints.gridy = 1;     
+        newPanel.add( descriptionLbl, constraints);
+         
+        constraints.gridx = 1;
+        newPanel.add(descriptionFld, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 2;     
+        newPanel.add(adminFeeLbl, constraints);
+         
+        constraints.gridx = 1;
+        newPanel.add(adminFeeFld, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 3;     
+        newPanel.add( dailyRateLbl, constraints);
+         
+        constraints.gridx = 1;
+        newPanel.add(dailyRateFld, constraints);
+
+       
+        constraints.gridx = 1;
+        constraints.gridy = 5;
+        constraints.gridwidth = 1;
+        constraints.anchor = GridBagConstraints.EAST;
+        newPanel.add(addButton, constraints);
+    
+         
+        // add the panel to this frame
+        add(newPanel);
         
-   GroupLayout jPanel1Layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                    .addComponent(addButton)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)    
-                            .addComponent(adminFeeLbl)
-                            .addComponent(descriptionLbl)
-                            .addComponent(dailyRateLbl)
-                            .addComponent(carNameLbl))
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                            .addComponent(descriptionFld)
-                            .addComponent(adminFeeFld)
-                            .addComponent(dailyRateFld, GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                            .addComponent(carNameFld))))
-                .addContainerGap(36, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(carNameLbl))
-                    .addGroup(GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(carNameFld, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(descriptionLbl)
-                    .addComponent(descriptionFld, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-               
-               
-                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(adminFeeFld, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(adminFeeLbl))
-                    .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(dailyRateFld, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dailyRateLbl))
-                    .addGap(20, 20, 20)
-                .addComponent(addButton)
-                .addGap(20, 20, 20))
-        );
+  
         
          addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -135,7 +131,7 @@ public class AddCarToRent extends JFrame
     }
     
       private void addButtonActionPerformed(ActionEvent e) {                                         
-        if (carNameFld.getText().isEmpty() || descriptionFld.getText().isEmpty() || rentalDateFld.getText().isEmpty() || returnDateFld.getText().isEmpty() || adminFeeFld.getText().isEmpty() || numberOfDaysFld.getText().isEmpty()) {
+        if (carNameFld.getText().isEmpty() || descriptionFld.getText().isEmpty() ||  adminFeeFld.getText().isEmpty() || dailyRateFld.getText().isEmpty()) {
 
             JOptionPane.showMessageDialog(null, "Please fill all fields");
 
@@ -144,11 +140,11 @@ public class AddCarToRent extends JFrame
         
         String carName = carNameFld.getText().trim();
         String description = descriptionFld.getText().trim();
-        String rentalDate = rentalDateFld.getText().trim();
-        String returnDate = returnDateFld.getText().trim();
+        String rentalDate = "";
+        String returnDate = "";
         int adminFee = Integer.parseInt(adminFeeFld.getText().trim());
         int dailyRate = Integer.parseInt(dailyRateFld.getText().trim());
-        int numberOfDays = Integer.parseInt(numberOfDaysFld.getText().trim());
+        int numberOfDays = 0;
         boolean onLoan = false; 
 
         int totalAccumulated = numberOfDays * dailyRate + adminFee;

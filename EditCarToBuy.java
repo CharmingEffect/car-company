@@ -5,6 +5,7 @@ import java.util.*;  // for arraylist
 import java.io.*;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.*;
+import java.awt.*;
 
 public class EditCarToBuy extends JFrame{
 
@@ -136,7 +137,7 @@ public void deleteCarFromFile() {
 
 private void initGui(){
 
-    setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+   
 
     //labels
     descriptionLabel = new JLabel("Description:");
@@ -148,10 +149,10 @@ private void initGui(){
     
     //fields
 
-    descriptionField = new JTextField();
-    priceField = new JTextField();
-    regYearField = new JTextField();
-    mileageField = new JTextField();
+    descriptionField = new JTextField(15);
+    priceField = new JTextField(15);
+    regYearField = new JTextField(15);
+    mileageField = new JTextField(15);
 
     
     //buttons
@@ -163,66 +164,86 @@ private void initGui(){
     // options 
     setTitle("Edit car to buy");
     setResizable(false);
-
+    setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+  
 
  // Layout for the components 
 
-    GroupLayout groupLayout = new GroupLayout(getContentPane());
-    getContentPane().setLayout(groupLayout);
-    groupLayout.setHorizontalGroup(
-        groupLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-        .addGroup(groupLayout.createSequentialGroup()
-            .addGap(65, 65, 65)
-            .addGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                .addGroup(groupLayout.createSequentialGroup()
-                    .addComponent(saveBtn)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(deleteBtn))
-                .addGroup(groupLayout.createSequentialGroup()
-                    .addGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                        .addComponent(nameLabel)
-                        .addComponent(mileageLabel)
-                        .addComponent(regYearLabel)
-                        .addComponent(priceLabel)
-                        .addComponent(descriptionLabel))
-                    .addGap(18, 18, 18)
-                    .addGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                        .addComponent(descriptionField)
-                        .addComponent(priceField)
-                        .addComponent(regYearField)
-                        .addComponent(mileageField)
-                        .addComponent(listCarsComboBox, 0, 257, Short.MAX_VALUE))))
-            .addContainerGap(64, Short.MAX_VALUE))
-    );
-    groupLayout.setVerticalGroup(
-        groupLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-        .addGroup(groupLayout.createSequentialGroup()
-            .addGap(37, 37, 37)
-            .addGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                .addComponent(nameLabel)
-                .addComponent(listCarsComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-            .addGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                .addComponent(descriptionLabel)
-                .addComponent(descriptionField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-            .addGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                .addComponent(priceLabel)
-                .addComponent(priceField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-            .addGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                .addComponent(regYearLabel)
-                .addComponent(regYearField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-            .addGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addComponent(mileageLabel)
-                .addComponent(mileageField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-            .addGap(32, 32, 32)
-            .addGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                .addComponent(deleteBtn)
-                .addComponent(saveBtn))
-            .addContainerGap(49, Short.MAX_VALUE))
-    );
+  // create a new panel with GridBagLayout manager
+  JPanel newPanel = new JPanel(new GridBagLayout());
+         
+  GridBagConstraints constraints = new GridBagConstraints();
+  constraints.anchor = GridBagConstraints.EAST;
+  constraints.insets = new Insets(10, 10, 10, 10);
+   
+  // add components to the panel
+  constraints.gridx = 0;
+  constraints.gridy = 0;     
+  newPanel.add(nameLabel, constraints);
+
+  constraints.anchor = GridBagConstraints.WEST;
+  constraints.gridx = 1;
+
+ 
+  newPanel.add(listCarsComboBox, constraints);
+
+ constraints.anchor = GridBagConstraints.EAST;
+
+  constraints.gridx = 0;
+  constraints.gridy = 1;     
+  newPanel.add(descriptionLabel, constraints);
+   
+  constraints.gridx = 1;
+  newPanel.add(descriptionField, constraints);
+
+  constraints.gridx = 0;
+  constraints.gridy = 2;     
+  newPanel.add(priceLabel, constraints);
+   
+  constraints.gridx = 1;
+  newPanel.add(priceField, constraints);
+
+  constraints.gridx = 0;
+  constraints.gridy = 2;     
+  newPanel.add(priceLabel, constraints);
+   
+  constraints.gridx = 1;
+  newPanel.add(priceField, constraints);
+
+  constraints.gridx = 0;
+  constraints.gridy = 3;     
+  newPanel.add(regYearLabel, constraints);
+   
+  constraints.gridx = 1;
+  newPanel.add(regYearField, constraints);
+
+  constraints.gridx = 0;
+  constraints.gridy = 4;     
+  newPanel.add(mileageLabel, constraints);
+   
+  constraints.gridx = 1;
+  newPanel.add(mileageField, constraints);
+
+
+
+ 
+  constraints.gridx = 1;
+  constraints.gridy = 5;
+  constraints.gridwidth = 1;
+  constraints.anchor = GridBagConstraints.WEST;
+  newPanel.add(saveBtn, constraints);
+
+  constraints.gridx = 1;
+  constraints.gridy = 5;
+  constraints.gridwidth = 1;
+  constraints.anchor = GridBagConstraints.EAST;
+  newPanel.add(deleteBtn , constraints);
+
+
+
+   
+  // add the panel to this frame
+  add(newPanel);
 
     listCarsComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
     listCarsComboBox.addActionListener(new java.awt.event.ActionListener() {
