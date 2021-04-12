@@ -31,11 +31,13 @@ public class BuyCar extends JFrame {
     private JLabel priceCurrentLbl;
     private JLabel regYearCurrentLbl;
     private JLabel mileageCurrentLbl;
-    DefaultListModel listModel = new DefaultListModel();
+    private DefaultListModel listModel;
+
     public BuyCar() {
 
         initGui();
-     
+        
+        listModel = new DefaultListModel();
         carsToBuy = new ArrayList<CarToBuy>();
         populateArrayList();
 
