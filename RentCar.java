@@ -228,7 +228,7 @@ public class RentCar extends JFrame {
 
         rentButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                buyCarButtonAction(evt);
+                rentCarButtonAction(evt);
             }
         });
 
@@ -252,7 +252,7 @@ public class RentCar extends JFrame {
         }
     }
 
-    private void buyCarButtonAction(ActionEvent evt) {
+    private void rentCarButtonAction(ActionEvent evt) {
         int selectedIndex = carList.getSelectedIndex();
        carsToRent.remove(selectedIndex).setOnLoan(true);
       

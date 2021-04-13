@@ -37,10 +37,11 @@ public class BuyCar extends JFrame {
 
         initGui();
         
+        
         listModel = new DefaultListModel();
         carsToBuy = new ArrayList<CarToBuy>();
+        
         populateArrayList();
-
         String[] carsToBuyArray = new String[carsToBuy.size()];
        
         
@@ -49,6 +50,7 @@ public class BuyCar extends JFrame {
             
             
             carsToBuyArray[i] = carsToBuy.get(i).getCarName();
+            System.out.println(carsToBuy.get(i).isSold());
             
             listModel.addElement(carsToBuyArray[i]);
            
@@ -207,7 +209,7 @@ public class BuyCar extends JFrame {
 
         buyButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                rentCarButtonAction(evt);
+                buyCarButtonAction(evt);
             }
         });
 
@@ -231,10 +233,11 @@ public class BuyCar extends JFrame {
         }
     }
 
-    private void rentCarButtonAction(ActionEvent evt) {
-        int selectedIndex = carList.getSelectedIndex();
+    private void buyCarButtonAction(ActionEvent evt) {
+       int selectedIndex = carList.getSelectedIndex();
        carsToBuy.remove(selectedIndex).setSold(true);
-       removeCarFromFile();
+       
+       
 
       
     
