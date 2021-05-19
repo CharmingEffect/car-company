@@ -2,6 +2,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.*;
+
 public class Menu extends JFrame {
 
   ImageIcon iconMain = new ImageIcon("icons/icon.png");

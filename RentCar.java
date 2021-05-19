@@ -25,6 +25,7 @@ public class RentCar extends JFrame {
     private JLabel dailyRateLbl;
     private JLabel rentalDateLbl;
     private JLabel returnDateLbl;
+    private JLabel clientNameLbl;
    
 
     private JList<String> carList;
@@ -36,6 +37,8 @@ public class RentCar extends JFrame {
     private JLabel dailyRateCurrentLbl;
     private JTextField rentalDateFld;
     private JTextField returnDateFld;
+    private JTextField clientNameFld;
+
 
   
     DefaultListModel listModel = new DefaultListModel();
@@ -118,6 +121,7 @@ public class RentCar extends JFrame {
         dailyRateLbl = new JLabel("Daily Rate:");
         rentalDateLbl = new JLabel("Rental date:");
         returnDateLbl = new JLabel("Return date:");
+        clientNameLbl = new JLabel("Your name:");
    
 
         descriptionCurrentLbl = new JLabel();
@@ -125,6 +129,7 @@ public class RentCar extends JFrame {
         dailyRateCurrentLbl = new JLabel();
         rentalDateFld = new JTextField(15);
         returnDateFld = new JTextField(15);
+        clientNameFld = new JTextField(15);
         
 
        
@@ -195,9 +200,15 @@ public class RentCar extends JFrame {
         constraints.gridx = 1;
         rightPanel.add(returnDateFld, constraints);
 
-       
+        constraints.gridx = 0;
+        constraints.gridy = 5;     
+        rightPanel.add(clientNameLbl, constraints);
+         
         constraints.gridx = 1;
-        constraints.gridy = 5;
+        rightPanel.add(clientNameFld, constraints);
+
+        constraints.gridx = 1;
+        constraints.gridy = 6;
         constraints.gridwidth = 1;
         constraints.anchor = GridBagConstraints.EAST;
         rightPanel.add(rentButton, constraints);

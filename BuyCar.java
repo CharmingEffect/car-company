@@ -50,7 +50,7 @@ public class BuyCar extends JFrame {
             
             
             carsToBuyArray[i] = carsToBuy.get(i).getCarName();
-            System.out.println(carsToBuy.get(i).isSold());
+            
             
             listModel.addElement(carsToBuyArray[i]);
            
@@ -220,7 +220,7 @@ public class BuyCar extends JFrame {
         int selectedIndex = carList.getSelectedIndex();
 
         if (carsToBuy.get(selectedIndex).isSold() == false) {
-
+            System.out.println(carsToBuy.get(selectedIndex).isSold());
             descriptionCurrentLbl.setText(carsToBuy.get(selectedIndex).getDescription());
             priceCurrentLbl.setText(carsToBuy.get(selectedIndex).getPrice() + "");
             regYearCurrentLbl.setText(carsToBuy.get(selectedIndex).getRegYear() + "");
@@ -234,7 +234,7 @@ public class BuyCar extends JFrame {
     }
 
     private void buyCarButtonAction(ActionEvent evt) {
-       int selectedIndex = carList.getSelectedIndex();
+       int selectedIndex = carList.getSelectedIndex(); // nie zapisuje do pliku 
        carsToBuy.remove(selectedIndex).setSold(true);
        
        
