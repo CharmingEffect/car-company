@@ -150,6 +150,7 @@ public class AddCarToBuy extends JFrame
             JOptionPane.showMessageDialog(null, "Please fill all fields");
 
         }
+
         else {
         
         String carName = carNameField.getText().trim();
@@ -159,14 +160,14 @@ public class AddCarToBuy extends JFrame
         int regYear = Integer.parseInt(regYearField.getText().trim());
         boolean sold = false; 
         
-        CarToBuy carToBuy = new CarToBuy(price, regYear, mileage,  sold, carName, description);   
+        CarToBuy carToBuy = new CarToBuy(price, regYear, mileage, sold, carName, description);   
         carsToBuy.add(carToBuy);     
         saveCarToBuyToFile();       
         
         }
     }                                        
 
-    // descibe this 
+    // describe this 
     public void populateArrayList() {   //populate array list 
 
         try {

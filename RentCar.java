@@ -104,7 +104,7 @@ public class RentCar extends JFrame {
     }
 
     private void initGui() {
-        this.setPreferredSize(new Dimension(600, 300));
+        this.setPreferredSize(new Dimension(600, 400));
         this.setTitle("Choose and rent the car");
         //this.setResizable(false);
         carListScroll = new JScrollPane();

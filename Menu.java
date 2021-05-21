@@ -33,6 +33,7 @@ public class Menu extends JFrame {
    
     setTitle("Car Company");
     setIconImage(iconMain.getImage());
+    setSize(600, 600);
   }
 
   private void initGui() {
@@ -116,6 +117,8 @@ public class Menu extends JFrame {
 
     background.setIcon(new ImageIcon(getClass().getResource("/icons/car.png")));
 
+   
+
     pack();
 
     exitItem.addActionListener(new ActionListener() {
@@ -125,12 +128,15 @@ public class Menu extends JFrame {
 
     });
 
+
+
     ctbItem.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
         AddCarToBuy addCar = new AddCarToBuy();
         addCar.setVisible(true);
         addCar.setLocationRelativeTo(null);
       }
+
 
     });
 

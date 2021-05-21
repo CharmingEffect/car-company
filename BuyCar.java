@@ -3,11 +3,9 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.awt.*;
-import java.beans.XMLDecoder;
 import java.awt.event.*;
 
 public class BuyCar extends JFrame {
@@ -42,6 +40,7 @@ public class BuyCar extends JFrame {
         carsToBuy = new ArrayList<CarToBuy>();
         
         populateArrayList();
+        
         String[] carsToBuyArray = new String[carsToBuy.size()];
        
         
@@ -235,13 +234,40 @@ public class BuyCar extends JFrame {
 
     private void buyCarButtonAction(ActionEvent evt) {
        int selectedIndex = carList.getSelectedIndex(); // nie zapisuje do pliku 
+       
        carsToBuy.remove(selectedIndex).setSold(true);
+       saveCarToBuyToFile();
        
        
 
       
     
    }
+
+   public void saveCarToBuyToFile() {
+
+    try {
+        FileOutputStream file = new FileOutputStream("carsToBuy.dat"); // try to create a file if not created
+        ObjectOutputStream outputFile = new ObjectOutputStream(file);
+
+        for (int i = 0; i < carsToBuy.size(); i++) {
+
+            outputFile.writeObject(carsToBuy.get(i));
+
+        }
+
+        outputFile.close();
+
+        JOptionPane.showMessageDialog(null, "Car to buy has been succesfully added!");
+        this.dispose();
+
+    } catch (IOException e) {
+
+        JOptionPane.showMessageDialog(null, e.getMessage());
+
+    }
+
+}
 
 
    public void removeCarFromFile() {
