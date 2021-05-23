@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.*;
 
+
 public class BuyCar extends JFrame {
 
     ArrayList<CarToBuy> carsToBuy;
@@ -25,7 +26,7 @@ public class BuyCar extends JFrame {
 
     private JScrollPane carListScroll;
 
-    private JLabel descriptionCurrentLbl;
+    private JTextArea descriptionCurrentLbl;
     private JLabel priceCurrentLbl;
     private JLabel regYearCurrentLbl;
     private JLabel mileageCurrentLbl;
@@ -97,105 +98,69 @@ public class BuyCar extends JFrame {
     }
 
     private void initGui() {
-        this.setPreferredSize(new Dimension(600, 300));
+        this.setPreferredSize(new Dimension(450, 400));
         this.setTitle("Choose and buy the car");
-        //this.setResizable(false);
+        
+        JPanel panel = new JPanel();
+        panel.setLayout(null);
+        getContentPane().add(panel);
+
         carListScroll = new JScrollPane();
         carList = new JList<>();
 
-        labelInfo = new JLabel("Available cars to buy:");
+        labelInfo = new JLabel("<html>Choose a car from the <br> list to see the details:<html>");
+        panel.add(labelInfo);
+        labelInfo.setBounds(25, 0, 200, 100);
+
 
         descriptionLbl = new JLabel("Description:");
-        priceLbl = new JLabel("Price:");
-        regYearLbl = new JLabel("Registration Year:");
-        mileageLbl = new JLabel("Mileage:");
-
-        descriptionCurrentLbl = new JLabel();
-        priceCurrentLbl = new JLabel();
-        regYearCurrentLbl = new JLabel();
-        mileageCurrentLbl = new JLabel();
-
+        panel.add(descriptionLbl);
+        descriptionLbl.setBounds(200, 100, 200, 100);
        
 
-        // descriptionLbl.setFont (descriptionLbl.getFont ().deriveFont (64.0f));
+        descriptionCurrentLbl = new JTextArea();
+        panel.add(descriptionCurrentLbl);
+        descriptionCurrentLbl.setBounds(200, 170, 200, 100);
+        descriptionCurrentLbl.setLineWrap(true);
+        descriptionCurrentLbl.setEditable(false);
+
+
+        priceLbl = new JLabel("Price:");
+        panel.add(priceLbl);
+        priceLbl.setBounds(200, 40, 200, 100);
+
+        priceCurrentLbl = new JLabel();
+        panel.add(priceCurrentLbl);
+        priceCurrentLbl.setBounds(310, 40, 200, 100);
+
+        
+        regYearLbl = new JLabel("Registration Year:");
+        panel.add(regYearLbl);
+        regYearLbl.setBounds(200, 60, 200, 100);
+
+        regYearCurrentLbl = new JLabel();
+        panel.add(regYearCurrentLbl);
+        regYearCurrentLbl.setBounds(310, 60, 200, 100);
+
+
+        mileageLbl = new JLabel("Mileage:");
+        panel.add(mileageLbl);
+        mileageLbl.setBounds(200, 20, 200, 100);
+
+        mileageCurrentLbl = new JLabel();
+        panel.add(mileageCurrentLbl);     
+        mileageCurrentLbl.setBounds(310, 20, 200, 100);
+
 
         buyButton = new JButton("Buy This Car");
-
-       
+        panel.add(buyButton); 
+        buyButton.setBounds(250, 300, 150, 30);
 
         carListScroll.setViewportView(carList);
+        panel.add(carListScroll);
+        carListScroll.setBounds(25, 70, 150, 200);
 
-
-        JPanel leftPanel = new JPanel(new GridLayout());
-        leftPanel.add(labelInfo);
-        leftPanel.add(carList);
-       
-       
-
-        JPanel rightPanel = new JPanel(new GridBagLayout());
-
-
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.anchor = GridBagConstraints.EAST;
-        constraints.insets = new Insets(10, 10, 10, 10);
-         
-        // add components to the panel
-        constraints.gridx = 0;
-        constraints.gridy = 0;     
-        rightPanel.add(descriptionLbl, constraints);
- 
-        constraints.anchor = GridBagConstraints.WEST;
-        constraints.gridx = 1;
-        rightPanel.add(descriptionCurrentLbl, constraints);
-
-        constraints.anchor = GridBagConstraints.EAST; 
-        constraints.gridx = 0;
-        constraints.gridy = 1;     
-        rightPanel.add( priceLbl, constraints);
-
-        constraints.anchor = GridBagConstraints.WEST;
-        constraints.gridx = 1;
-        rightPanel.add(priceCurrentLbl, constraints);
-
-        constraints.anchor = GridBagConstraints.EAST; 
-        constraints.gridx = 0;
-        constraints.gridy = 2;     
-        rightPanel.add(regYearLbl, constraints);
-         
-        constraints.anchor = GridBagConstraints.WEST;
-        constraints.gridx = 1;
-        rightPanel.add(regYearCurrentLbl, constraints);
-
-        constraints.anchor = GridBagConstraints.EAST; 
-        constraints.gridx = 0;
-        constraints.gridy = 3;     
-        rightPanel.add( mileageLbl, constraints);
-
-        constraints.anchor = GridBagConstraints.WEST;
-        constraints.gridx = 1;
-        rightPanel.add(mileageCurrentLbl, constraints);
-
-       
-        constraints.gridx = 1;
-        constraints.gridy = 5;
-        constraints.gridwidth = 1;
-        constraints.anchor = GridBagConstraints.EAST;
-        rightPanel.add(buyButton, constraints);
-    
-
-
-
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,carList, rightPanel);
-        splitPane.setOneTouchExpandable(true);
-        splitPane.setDividerLocation(150);
-        this.getContentPane().add(splitPane, BorderLayout.CENTER);  
-        
-        rightPanel.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createEtchedBorder(), "Information about chosen car", TitledBorder.LEFT, TitledBorder.TOP));
-
-
-
-
+     
 
         carList.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
@@ -219,9 +184,8 @@ public class BuyCar extends JFrame {
         int selectedIndex = carList.getSelectedIndex();
 
         if (carsToBuy.get(selectedIndex).isSold() == false) {
-            System.out.println(carsToBuy.get(selectedIndex).isSold());
             descriptionCurrentLbl.setText(carsToBuy.get(selectedIndex).getDescription());
-            priceCurrentLbl.setText(carsToBuy.get(selectedIndex).getPrice() + "");
+            priceCurrentLbl.setText("£" + carsToBuy.get(selectedIndex).getPrice() + "");
             regYearCurrentLbl.setText(carsToBuy.get(selectedIndex).getRegYear() + "");
             mileageCurrentLbl.setText(carsToBuy.get(selectedIndex).getMileage() + "");
             
@@ -236,41 +200,12 @@ public class BuyCar extends JFrame {
        int selectedIndex = carList.getSelectedIndex(); // nie zapisuje do pliku 
        
        carsToBuy.remove(selectedIndex).setSold(true);
-       saveCarToBuyToFile();
-       
-       
+       updateCarToBuyToFile();
 
-      
     
    }
 
-   public void saveCarToBuyToFile() {
-
-    try {
-        FileOutputStream file = new FileOutputStream("carsToBuy.dat"); // try to create a file if not created
-        ObjectOutputStream outputFile = new ObjectOutputStream(file);
-
-        for (int i = 0; i < carsToBuy.size(); i++) {
-
-            outputFile.writeObject(carsToBuy.get(i));
-
-        }
-
-        outputFile.close();
-
-        JOptionPane.showMessageDialog(null, "Car to buy has been succesfully added!");
-        this.dispose();
-
-    } catch (IOException e) {
-
-        JOptionPane.showMessageDialog(null, e.getMessage());
-
-    }
-
-}
-
-
-   public void removeCarFromFile() {
+   public void updateCarToBuyToFile() {
 
     try {
         FileOutputStream file = new FileOutputStream("carsToBuy.dat"); // try to create a file if not created
@@ -292,7 +227,6 @@ public class BuyCar extends JFrame {
         JOptionPane.showMessageDialog(null, e.getMessage());
 
     }
-
 
 }
 

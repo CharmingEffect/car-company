@@ -3,8 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
- 
-
 import java.io.*;
 
 /**
@@ -15,11 +13,12 @@ public class Car implements Serializable  {
     
     private String description;
     private String carName;
-    private String customerName = "";
+    private String customerName;
 
-    public Car(String description, String carName) {
+    public Car(String description, String carName, String customerName) {
         this.description = description;
         this.carName = carName;
+        this.customerName = customerName;
     }
 
     public String getCarName() {
@@ -45,6 +44,5 @@ public class Car implements Serializable  {
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
-    
-    
+
 }

@@ -33,7 +33,7 @@ public class Menu extends JFrame {
    
     setTitle("Car Company");
     setIconImage(iconMain.getImage());
-    setSize(600, 600);
+    
   }
 
   private void initGui() {
@@ -96,7 +96,6 @@ public class Menu extends JFrame {
    
    
    menuBar.add(about);
-
 
 
 
@@ -186,9 +185,6 @@ public class Menu extends JFrame {
       }
 
     });
-
-
-
-
   }
+
 }

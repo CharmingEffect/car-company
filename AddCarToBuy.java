@@ -64,11 +64,8 @@ public class AddCarToBuy extends JFrame
   
         setTitle("Add car to buy");
         setResizable(false);
-        
-       
-    
-        
-
+  
+  
          
         // create a new panel with GridBagLayout manager
         JPanel newPanel = new JPanel(new GridBagLayout());
@@ -120,9 +117,6 @@ public class AddCarToBuy extends JFrame
         constraints.gridx = 1;
         newPanel.add(mileageField, constraints);
 
-
-
-       
         constraints.gridx = 1;
         constraints.gridy = 5;
         constraints.gridwidth = 1;
@@ -147,7 +141,7 @@ public class AddCarToBuy extends JFrame
       private void addButtonActionPerformed(ActionEvent e) {                                         
         if (descriptionField.getText().isEmpty() || mileageField.getText().isEmpty() || priceField.getText().isEmpty() || regYearField.getText().isEmpty()) {
 
-            JOptionPane.showMessageDialog(null, "Please fill all fields");
+            JOptionPane.showMessageDialog(null, "Please fill all the fields");
 
         }
 
@@ -159,13 +153,16 @@ public class AddCarToBuy extends JFrame
         double price = Double.parseDouble(priceField.getText().trim());
         int regYear = Integer.parseInt(regYearField.getText().trim());
         boolean sold = false; 
+        String customerName = "";
         
-        CarToBuy carToBuy = new CarToBuy(price, regYear, mileage, sold, carName, description);   
+        CarToBuy carToBuy = new CarToBuy(customerName, price, regYear, mileage, sold, carName, description);   
         carsToBuy.add(carToBuy);     
-        saveCarToBuyToFile();       
+        saveCarToBuyToFile();     
         
         }
     }                                        
+
+    
 
     // describe this 
     public void populateArrayList() {   //populate array list 
@@ -201,32 +198,32 @@ public class AddCarToBuy extends JFrame
         }
 
     }
-    
-    
-      public void saveCarToBuyToFile() {
+
+    // function for 
+    public void saveCarToBuyToFile() {
 
         try {
             FileOutputStream file = new FileOutputStream("carsToBuy.dat"); // try to create a file if not created
             ObjectOutputStream outputFile = new ObjectOutputStream(file);
-
-            for (int i = 0; i < carsToBuy.size(); i++) {
-
-                outputFile.writeObject(carsToBuy.get(i));
-
-            }
-
-            outputFile.close();
-
-            JOptionPane.showMessageDialog(null, "Car to buy has been succesfully added!");
-            this.dispose();
-
-        } catch (IOException e) {
-
-            JOptionPane.showMessageDialog(null, e.getMessage());
-
-        }
-
-    }
     
+            for (int i = 0; i < carsToBuy.size(); i++) {
+    
+                outputFile.writeObject(carsToBuy.get(i));
+    
+            }
+    
+            outputFile.close();
+    
+            JOptionPane.showMessageDialog(null, "The car has been sacessfully added");
+    
+            //this.dispose();
+    
+        } catch (IOException e) {
+    
+            JOptionPane.showMessageDialog(null, e.getMessage());
+    
+        }
+    
+    }
     
 }

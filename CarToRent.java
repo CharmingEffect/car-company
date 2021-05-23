@@ -14,9 +14,9 @@ public class CarToRent extends Car implements Serializable {
     private int totalAccumulated;
     private boolean onLoan;
 
-    public CarToRent(String rentalDate, String returnDate, int adminFee,  int numberOfDays, int dailyRate, int totalAccumulated, boolean onLoan,  String carName, String description) {
+    public CarToRent(String rentalDate, String returnDate, int adminFee,  int numberOfDays, int dailyRate, int totalAccumulated, boolean onLoan,  String carName, String description, String customerName) {
        
-        super(description, carName);
+        super(description, carName, customerName);
         this.rentalDate = rentalDate;
         this.returnDate = returnDate;
         this.adminFee = adminFee;

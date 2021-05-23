@@ -142,21 +142,23 @@ public class AddCarToRent extends JFrame
         String description = descriptionFld.getText().trim();
         String rentalDate = "";
         String returnDate = "";
+        String customerName = "";
         int adminFee = Integer.parseInt(adminFeeFld.getText().trim());
         int dailyRate = Integer.parseInt(dailyRateFld.getText().trim());
         int numberOfDays = 0;
         boolean onLoan = false; 
+        
 
         int totalAccumulated = numberOfDays * dailyRate + adminFee;
         
-        CarToRent carToRent = new CarToRent(rentalDate, returnDate, adminFee, numberOfDays, dailyRate, totalAccumulated, onLoan, carName, description); //change here for car to rent 
+        CarToRent carToRent = new CarToRent(rentalDate, returnDate, adminFee, numberOfDays, dailyRate, totalAccumulated, onLoan, carName, description, customerName); 
         carsToRent.add(carToRent);     
         saveCarToRentToFile();       
         
         }
     }                                        
 
-    // descibe this 
+
     public void populateArrayList() {   //populate array list 
 
         try {

@@ -6,15 +6,25 @@ public class CarToBuy extends Car implements Serializable {
     private int regYear;
     private int mileage;
     private boolean sold;
+    private String customerName;
 
-    public CarToBuy(double price, int regYear, int mileage, boolean sold, String carName, String description) {
-        super(description, carName);  
+    public CarToBuy(String customerName, double price, int regYear, int mileage, boolean sold, String carName, String description) {
+        super(description, carName, customerName);  
         this.price = price;
         this.regYear = regYear;
         this.mileage = mileage;
         this.sold = false;
     }
 
+    public String getCustomerName() {
+		return this.customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+
+    
     public double getPrice() {
         return price;
     }

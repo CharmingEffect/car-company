@@ -5,17 +5,19 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import java.io.*;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.awt.*;
 import java.beans.XMLDecoder;
 import java.awt.event.*;
 
 public class RentCar extends JFrame {
-   
+
     // init variables
 
     ArrayList<CarToRent> carsToRent;
-    
+
     private JButton rentButton;
 
     private JLabel labelInfo;
@@ -26,42 +28,35 @@ public class RentCar extends JFrame {
     private JLabel rentalDateLbl;
     private JLabel returnDateLbl;
     private JLabel clientNameLbl;
-   
 
     private JList<String> carList;
 
     private JScrollPane carListScroll;
 
-    private JLabel descriptionCurrentLbl;
+    private JTextArea descriptionCurrentLbl;
     private JLabel adminFeeCurrentLbl;
     private JLabel dailyRateCurrentLbl;
     private JTextField rentalDateFld;
     private JTextField returnDateFld;
     private JTextField clientNameFld;
 
-
-  
     DefaultListModel listModel = new DefaultListModel();
+
     public RentCar() {
 
         initGui();
-     
+
         carsToRent = new ArrayList<CarToRent>();
         populateArrayList();
 
         String[] carsToRentArray = new String[carsToRent.size()];
-       
-        
-       
+
         for (int i = 0; i < carsToRent.size(); i++) {
-            
-            
+
             carsToRentArray[i] = carsToRent.get(i).getCarName();
-            
+
             listModel.addElement(carsToRentArray[i]);
-           
-            
-        
+
         }
 
         carList.setModel(listModel);
@@ -104,129 +99,84 @@ public class RentCar extends JFrame {
     }
 
     private void initGui() {
-        this.setPreferredSize(new Dimension(600, 400));
+        this.setPreferredSize(new Dimension(450, 450));
         this.setTitle("Choose and rent the car");
-        //this.setResizable(false);
+        // this.setResizable(false);
         carListScroll = new JScrollPane();
         carList = new JList<>();
 
-        
+        JPanel panel = new JPanel();
+        panel.setLayout(null);
+        getContentPane().add(panel);
+
         carListScroll = new JScrollPane();
         carList = new JList<>();
 
-        labelInfo = new JLabel("Available cars to buy:");
+        labelInfo = new JLabel("<html>Choose a car from the <br> list to see the details:<html>");
+        panel.add(labelInfo);
+        labelInfo.setBounds(25, 0, 200, 100);
 
         descriptionLbl = new JLabel("Description:");
-        adminFeeLbl = new JLabel("Admin Fee:");
-        dailyRateLbl = new JLabel("Daily Rate:");
-        rentalDateLbl = new JLabel("Rental date:");
-        returnDateLbl = new JLabel("Return date:");
-        clientNameLbl = new JLabel("Your name:");
-   
+        panel.add(descriptionLbl);
+        descriptionLbl.setBounds(200, 60, 200, 100);
 
-        descriptionCurrentLbl = new JLabel();
+        descriptionCurrentLbl = new JTextArea();
+        panel.add(descriptionCurrentLbl);
+        descriptionCurrentLbl.setBounds(200, 120, 200, 100);
+        descriptionCurrentLbl.setLineWrap(true);
+        descriptionCurrentLbl.setEditable(false);
+
+        // na gorze
+
+        adminFeeLbl = new JLabel("Admin Fee: ");
+        panel.add(adminFeeLbl);
+        adminFeeLbl.setBounds(200, 20, 200, 100);
+
         adminFeeCurrentLbl = new JLabel();
+        panel.add(adminFeeCurrentLbl);
+        adminFeeCurrentLbl.setBounds(310, 20, 200, 100);
+
+        dailyRateLbl = new JLabel("Daily Rate:");
+        panel.add(dailyRateLbl);
+        dailyRateLbl.setBounds(200, 40, 200, 100);
+
         dailyRateCurrentLbl = new JLabel();
+        panel.add(dailyRateCurrentLbl);
+        dailyRateCurrentLbl.setBounds(310, 40, 200, 100);
+
+        rentalDateLbl = new JLabel("Rental date:");
+        panel.add(rentalDateLbl);
+        rentalDateLbl.setBounds(200, 200, 200, 100);
+
         rentalDateFld = new JTextField(15);
+        panel.add(rentalDateFld);
+        rentalDateFld.setBounds(310, 242, 100, 20);
+
+        returnDateLbl = new JLabel("Return date:");
+        panel.add(returnDateLbl);
+        returnDateLbl.setBounds(200, 230, 200, 100);
+
         returnDateFld = new JTextField(15);
+        panel.add(returnDateFld);
+        returnDateFld.setBounds(310, 272, 100, 20);
+
+        clientNameLbl = new JLabel("Customer's name:");
+        panel.add(clientNameLbl);
+        clientNameLbl.setBounds(200, 260, 200, 100);
+
         clientNameFld = new JTextField(15);
-        
-
-       
-
-        // descriptionLbl.setFont (descriptionLbl.getFont ().deriveFont (64.0f));
-
-        rentButton = new JButton("Rent This Car");
-
-       
+        panel.add(clientNameFld);
+        clientNameFld.setBounds(310, 302, 100, 20);
 
         carListScroll.setViewportView(carList);
+        panel.add(carListScroll);
+        carListScroll.setBounds(25, 70, 150, 300);
 
+        rentButton = new JButton("Rent This Car");
+        panel.add(rentButton);
+        rentButton.setBounds(260, 350, 150, 30);
 
-        JPanel leftPanel = new JPanel(new GridLayout());
-        leftPanel.add(labelInfo);
-        leftPanel.add(carList);
-       
-       
-
-        JPanel rightPanel = new JPanel(new GridBagLayout());
-
-
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.anchor = GridBagConstraints.EAST;
-        constraints.insets = new Insets(10, 10, 10, 10);
-         
-        // add components to the panel
-        constraints.gridx = 0;
-        constraints.gridy = 0;     
-        rightPanel.add(descriptionLbl, constraints);
-        constraints.anchor = GridBagConstraints.WEST;
-
-        constraints.gridx = 1;
-        rightPanel.add(descriptionCurrentLbl, constraints);
-       
-        constraints.anchor = GridBagConstraints.EAST; 
-
-        constraints.gridx = 0;
-        constraints.gridy = 1;     
-        rightPanel.add( adminFeeLbl, constraints);
-
-        constraints.anchor = GridBagConstraints.WEST; 
-         
-        constraints.gridx = 1;
-        rightPanel.add(adminFeeCurrentLbl, constraints);
-
-        constraints.anchor = GridBagConstraints.EAST; 
-        constraints.gridx = 0;
-        constraints.gridy = 2;     
-        rightPanel.add(dailyRateLbl, constraints);
-
-        constraints.anchor = GridBagConstraints.WEST; 
-        
-        constraints.gridx = 1;
-        rightPanel.add(dailyRateCurrentLbl, constraints);
-
-        constraints.gridx = 0;
-        constraints.gridy = 3;     
-        rightPanel.add(rentalDateLbl, constraints);
-         
-        constraints.gridx = 1;
-        rightPanel.add(rentalDateFld, constraints);
-
-        constraints.gridx = 0;
-        constraints.gridy = 4;     
-        rightPanel.add(returnDateLbl, constraints);
-         
-        constraints.gridx = 1;
-        rightPanel.add(returnDateFld, constraints);
-
-        constraints.gridx = 0;
-        constraints.gridy = 5;     
-        rightPanel.add(clientNameLbl, constraints);
-         
-        constraints.gridx = 1;
-        rightPanel.add(clientNameFld, constraints);
-
-        constraints.gridx = 1;
-        constraints.gridy = 6;
-        constraints.gridwidth = 1;
-        constraints.anchor = GridBagConstraints.EAST;
-        rightPanel.add(rentButton, constraints);
-    
-
-
-
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,carList, rightPanel);
-        splitPane.setOneTouchExpandable(true);
-        splitPane.setDividerLocation(150);
-        this.getContentPane().add(splitPane, BorderLayout.CENTER);  
-        
-        rightPanel.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createEtchedBorder(), "Information about chosen car", TitledBorder.LEFT, TitledBorder.TOP));
-
-
-
-
+        carListScroll.setViewportView(carList);
 
         carList.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
@@ -254,49 +204,54 @@ public class RentCar extends JFrame {
             descriptionCurrentLbl.setText(carsToRent.get(selectedIndex).getDescription());
             adminFeeCurrentLbl.setText(carsToRent.get(selectedIndex).getAdminFee() + "");
             dailyRateCurrentLbl.setText(carsToRent.get(selectedIndex).getDailyRate() + "");
-    
-            
 
         } else {
 
-            JOptionPane.showMessageDialog(null, "This car has been bought already");
+            //JOptionPane.showMessageDialog(null, "This car has been bought already");
         }
     }
 
     private void rentCarButtonAction(ActionEvent evt) {
         int selectedIndex = carList.getSelectedIndex();
-       carsToRent.remove(selectedIndex).setOnLoan(true);
-      
 
-      
-    
-   }
-
-
-   public void removeCarFromFile() {
-
-    try {
-        FileOutputStream file = new FileOutputStream("carsToRent.dat"); // try to create a file if not created
-        ObjectOutputStream outputFile = new ObjectOutputStream(file);
-
-        for (int i = 0; i < carsToRent.size(); i++) {
-
-            outputFile.writeObject(carsToRent.get(i));
-
-        }
-
-        outputFile.close();
-
-        JOptionPane.showMessageDialog(null, "You have rented this car saccessfully!. Thank you");
-        this.dispose();
-
-    } catch (IOException e) {
-
-        JOptionPane.showMessageDialog(null, e.getMessage());
+        carsToRent.remove(selectedIndex).setOnLoan(true);
+        updateCarToRentToFile();
 
     }
 
+    public int daysBetween(String rentalDate, String returnDate) {
 
-}
+        LocalDate dateBefore = LocalDate.parse(rentalDate);
+        LocalDate dateAfter = LocalDate.parse(returnDate);
+
+        long noOfDaysBetween = ChronoUnit.DAYS.between(dateBefore, dateAfter);
+
+        return (int) noOfDaysBetween;
+    }
+
+    public void updateCarToRentToFile() {
+
+        try {
+            FileOutputStream file = new FileOutputStream("carsToRent.dat"); // try to create a file if not created
+            ObjectOutputStream outputFile = new ObjectOutputStream(file);
+
+            for (int i = 0; i < carsToRent.size(); i++) {
+
+                outputFile.writeObject(carsToRent.get(i));
+
+            }
+
+            outputFile.close();
+
+            JOptionPane.showMessageDialog(null, "Car to rent has been succesfully rented!");
+            this.dispose();
+
+        } catch (IOException e) {
+
+            JOptionPane.showMessageDialog(null, e.getMessage());
+
+        }
+
+    }
 
 }
