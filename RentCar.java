@@ -1,15 +1,12 @@
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import java.io.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.awt.*;
-import java.beans.XMLDecoder;
 import java.awt.event.*;
 
 public class RentCar extends JFrame {
@@ -47,20 +44,18 @@ public class RentCar extends JFrame {
         initGui();
 
         carsToRent = new ArrayList<CarToRent>();
+
         populateArrayList();
 
         String[] carsToRentArray = new String[carsToRent.size()];
 
         for (int i = 0; i < carsToRent.size(); i++) {
-            if(carsToRent.get(i).isOnLoan() == false){
+         
             carsToRentArray[i] = carsToRent.get(i).getCarName();
-           System.out.println(carsToRent.get(i).isOnLoan());
-           System.out.println("XXXXXXXXXXX");
-            
-            listModel.addElement(carsToRentArray[i]);
-        }
 
-        }
+            listModel.addElement(carsToRentArray[i]);
+        
+    }
 
         carList.setModel(listModel);
         carList.setSelectedIndex(0);
@@ -111,9 +106,6 @@ public class RentCar extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(null);
         getContentPane().add(panel);
-
-        carListScroll = new JScrollPane();
-        carList = new JList<>();
 
         labelInfo = new JLabel("<html>Choose a car from the <br> list to see the details:<html>");
         panel.add(labelInfo);
@@ -200,22 +192,40 @@ public class RentCar extends JFrame {
             }
         });
 
-        pack();
+       // pack();
     }
+
+private void clear(){
+
+    descriptionLbl.setVisible(false);
+    descriptionCurrentLbl.setVisible(false);
+    adminFeeCurrentLbl.setVisible(false);
+    adminFeeLbl.setVisible(false);
+    
+
+}
+
 
     private void carListAction() {
         int selectedIndex = carList.getSelectedIndex();
-
-        if (carsToRent.get(selectedIndex).isOnLoan() == false) {
-
+        
+        if (carsToRent.get(selectedIndex).isOnLoan() == false){
+   
             descriptionCurrentLbl.setText(carsToRent.get(selectedIndex).getDescription());
             adminFeeCurrentLbl.setText(carsToRent.get(selectedIndex).getAdminFee() + "");
             dailyRateCurrentLbl.setText(carsToRent.get(selectedIndex).getDailyRate() + "");
+            descriptionLbl.setVisible(true);
 
-        } else {
+        }else{
+            clear();
 
-            //JOptionPane.showMessageDialog(null, "This car has been bought already");
+
+
+
         }
+
+
+        
     }
 
     private void rentCarButtonAction(ActionEvent evt) {
