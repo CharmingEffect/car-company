@@ -144,6 +144,8 @@ public class RentCar extends JFrame {
         panel.add(dailyRateCurrentLbl);
         dailyRateCurrentLbl.setBounds(310, 40, 200, 100);
 
+        // change for formatted jlabel 
+
         rentalDateLbl = new JLabel("Rental date:");
         panel.add(rentalDateLbl);
         rentalDateLbl.setBounds(200, 200, 200, 100);
@@ -159,6 +161,8 @@ public class RentCar extends JFrame {
         returnDateFld = new JTextField(15);
         panel.add(returnDateFld);
         returnDateFld.setBounds(310, 272, 100, 20);
+
+        //-----------
 
         clientNameLbl = new JLabel("Customer's name:");
         panel.add(clientNameLbl);
@@ -213,11 +217,16 @@ public class RentCar extends JFrame {
 
     private void rentCarButtonAction(ActionEvent evt) {
         int selectedIndex = carList.getSelectedIndex();
-
+        carsToRent.get(selectedIndex).setRentalDate(rentalDateFld.getText()); // tutaj dodaje do listy 
+        carsToRent.get(selectedIndex).setReturnDate(returnDateFld.getText());
+        carsToRent.get(selectedIndex).setReturnDate(clientNameFld.getText());
         carsToRent.remove(selectedIndex).setOnLoan(true);
         updateCarToRentToFile();
 
     }
+
+    // The format for date is YYYY-MM-DD. 
+    // Will not work if the format is incorrect.
 
     public int daysBetween(String rentalDate, String returnDate) {
 

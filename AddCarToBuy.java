@@ -215,8 +215,7 @@ public class AddCarToBuy extends JFrame
             outputFile.close();
     
             JOptionPane.showMessageDialog(null, "The car has been sacessfully added");
-    
-            //this.dispose();
+            this.dispose();
     
         } catch (IOException e) {
     

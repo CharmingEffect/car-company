@@ -21,6 +21,7 @@ public class BuyCar extends JFrame {
     private JLabel priceLbl;
     private JLabel regYearLbl;
     private JLabel mileageLbl;
+    private JLabel customerNameLbl;
 
     private JList<String> carList;
 
@@ -31,6 +32,7 @@ public class BuyCar extends JFrame {
     private JLabel regYearCurrentLbl;
     private JLabel mileageCurrentLbl;
     private DefaultListModel listModel;
+    private JTextField customerNameFld;
 
     public BuyCar() {
 
@@ -151,6 +153,13 @@ public class BuyCar extends JFrame {
         panel.add(mileageCurrentLbl);     
         mileageCurrentLbl.setBounds(310, 20, 200, 100);
 
+        customerNameLbl = new JLabel("Customer name: ");
+        panel.add(customerNameLbl);
+        customerNameLbl.setBounds(40, 240, 200, 100);
+
+        customerNameFld = new JTextField(15);
+        panel.add(customerNameFld);
+        customerNameFld.setBounds(40, 300, 100, 20);
 
         buyButton = new JButton("Buy This Car");
         panel.add(buyButton); 
@@ -197,11 +206,18 @@ public class BuyCar extends JFrame {
     }
 
     private void buyCarButtonAction(ActionEvent evt) {
-       int selectedIndex = carList.getSelectedIndex(); // nie zapisuje do pliku 
-       
+        if(customerNameFld.getText().isEmpty()){
+
+            JOptionPane.showMessageDialog(null, "Please enter your name");
+
+        } else {
+
+       int selectedIndex = carList.getSelectedIndex();
+       carsToBuy.get(selectedIndex).setCustomerName(customerNameFld.getText());
        carsToBuy.remove(selectedIndex).setSold(true);
        updateCarToBuyToFile();
-
+    
+    }
     
    }
 
@@ -219,7 +235,7 @@ public class BuyCar extends JFrame {
 
         outputFile.close();
 
-        JOptionPane.showMessageDialog(null, "You have bought this car saccessfully!. Thank you");
+        JOptionPane.showMessageDialog(null, "You have bought this car saccessfully!. Thank you " + customerNameFld.getText());
         this.dispose();
 
     } catch (IOException e) {
