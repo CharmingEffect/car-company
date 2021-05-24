@@ -17,12 +17,12 @@ public class CarToBuy extends Car implements Serializable {
     }
 
     public String getCustomerName() {
-		return this.customerName;
-	}
+        return this.customerName;
+    }
 
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
-	}
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
 
     
     public double getPrice() {

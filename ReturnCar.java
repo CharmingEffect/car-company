@@ -12,19 +12,16 @@ import java.awt.*;
 import java.beans.XMLDecoder;
 import java.awt.event.*;
 
-public class RentCar extends JFrame {
+public class ReturnCar extends JFrame {
 
     // init variables
 
     ArrayList<CarToRent> carsToRent;
 
-    private JButton rentButton;
+    private JButton returnCarButton;
 
     private JLabel labelInfo;
 
-    private JLabel descriptionLbl;
-    private JLabel adminFeeLbl;
-    private JLabel dailyRateLbl;
     private JLabel rentalDateLbl;
     private JLabel returnDateLbl;
     private JLabel clientNameLbl;
@@ -36,13 +33,13 @@ public class RentCar extends JFrame {
     private JTextArea descriptionCurrentLbl;
     private JLabel adminFeeCurrentLbl;
     private JLabel dailyRateCurrentLbl;
-    private JTextField rentalDateFld;
-    private JTextField returnDateFld;
-    private JTextField clientNameFld;
+    private JLabel rentalDateFld;
+    private JLabel returnDateFld;
+    private JLabel clientNameFld;
 
     DefaultListModel listModel = new DefaultListModel();
 
-    public RentCar() {
+    public ReturnCar() {
 
         initGui();
 
@@ -52,13 +49,10 @@ public class RentCar extends JFrame {
         String[] carsToRentArray = new String[carsToRent.size()];
 
         for (int i = 0; i < carsToRent.size(); i++) {
-            if(carsToRent.get(i).isOnLoan() == false){
+
             carsToRentArray[i] = carsToRent.get(i).getCarName();
-           System.out.println(carsToRent.get(i).isOnLoan());
-           System.out.println("XXXXXXXXXXX");
-            
+
             listModel.addElement(carsToRentArray[i]);
-        }
 
         }
 
@@ -103,7 +97,7 @@ public class RentCar extends JFrame {
 
     private void initGui() {
         this.setPreferredSize(new Dimension(450, 450));
-        this.setTitle("Choose and rent the car");
+        this.setTitle("Return car");
         // this.setResizable(false);
         carListScroll = new JScrollPane();
         carList = new JList<>();
@@ -119,69 +113,42 @@ public class RentCar extends JFrame {
         panel.add(labelInfo);
         labelInfo.setBounds(25, 0, 200, 100);
 
-        descriptionLbl = new JLabel("Description:");
-        panel.add(descriptionLbl);
-        descriptionLbl.setBounds(200, 60, 200, 100);
-
-        descriptionCurrentLbl = new JTextArea();
-        panel.add(descriptionCurrentLbl);
-        descriptionCurrentLbl.setBounds(200, 120, 200, 100);
-        descriptionCurrentLbl.setLineWrap(true);
-        descriptionCurrentLbl.setEditable(false);
-
-        // na gorze
-
-        adminFeeLbl = new JLabel("Admin Fee: ");
-        panel.add(adminFeeLbl);
-        adminFeeLbl.setBounds(200, 20, 200, 100);
-
-        adminFeeCurrentLbl = new JLabel();
-        panel.add(adminFeeCurrentLbl);
-        adminFeeCurrentLbl.setBounds(310, 20, 200, 100);
-
-        dailyRateLbl = new JLabel("Daily Rate:");
-        panel.add(dailyRateLbl);
-        dailyRateLbl.setBounds(200, 40, 200, 100);
-
-        dailyRateCurrentLbl = new JLabel();
-        panel.add(dailyRateCurrentLbl);
-        dailyRateCurrentLbl.setBounds(310, 40, 200, 100);
 
         // change for formatted jlabel 
 
-        rentalDateLbl = new JLabel("Rental date:");
+        rentalDateLbl = new JLabel("This car has been rented on: ");
         panel.add(rentalDateLbl);
-        rentalDateLbl.setBounds(200, 200, 200, 100);
+        rentalDateLbl.setBounds(200, 20, 200, 100);
 
-        rentalDateFld = new JTextField(15);
+        rentalDateFld = new JLabel();
         panel.add(rentalDateFld);
-        rentalDateFld.setBounds(310, 242, 100, 20);
+        rentalDateFld.setBounds(200, 40, 200, 100);
 
-        returnDateLbl = new JLabel("Return date:");
+        returnDateLbl = new JLabel("This car should be returned on :");
         panel.add(returnDateLbl);
-        returnDateLbl.setBounds(200, 230, 200, 100);
+        returnDateLbl.setBounds(200, 60, 200, 100);
 
-        returnDateFld = new JTextField(15);
+        returnDateFld = new JLabel();
         panel.add(returnDateFld);
-        returnDateFld.setBounds(310, 272, 100, 20);
+        returnDateFld.setBounds(200, 120, 100, 20);
 
         //-----------
 
-        clientNameLbl = new JLabel("Customer's name:");
+        clientNameLbl = new JLabel("Rented by: ");
         panel.add(clientNameLbl);
-        clientNameLbl.setBounds(200, 260, 200, 100);
+        clientNameLbl.setBounds(200, 100, 200, 100);
 
-        clientNameFld = new JTextField(15);
+        clientNameFld = new JLabel();
         panel.add(clientNameFld);
-        clientNameFld.setBounds(310, 302, 100, 20);
+        clientNameFld.setBounds(280, 140, 100, 20);
 
         carListScroll.setViewportView(carList);
         panel.add(carListScroll);
         carListScroll.setBounds(25, 70, 150, 300);
 
-        rentButton = new JButton("Rent This Car");
-        panel.add(rentButton);
-        rentButton.setBounds(260, 350, 150, 30);
+        returnCarButton = new JButton("Return Car");
+        panel.add(returnCarButton);
+        returnCarButton.setBounds(260, 350, 150, 30);
 
         carListScroll.setViewportView(carList);
 
@@ -194,8 +161,9 @@ public class RentCar extends JFrame {
 
         );
 
-        rentButton.addActionListener(new ActionListener() {
+        returnCarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
+                
                 rentCarButtonAction(evt);
             }
         });
@@ -206,15 +174,15 @@ public class RentCar extends JFrame {
     private void carListAction() {
         int selectedIndex = carList.getSelectedIndex();
 
-        if (carsToRent.get(selectedIndex).isOnLoan() == false) {
+        if (carsToRent.get(selectedIndex).isOnLoan() == true) {
 
-            descriptionCurrentLbl.setText(carsToRent.get(selectedIndex).getDescription());
-            adminFeeCurrentLbl.setText(carsToRent.get(selectedIndex).getAdminFee() + "");
-            dailyRateCurrentLbl.setText(carsToRent.get(selectedIndex).getDailyRate() + "");
+            rentalDateFld.setText(carsToRent.get(selectedIndex).getRentalDate() + "");
+            returnDateFld.setText(carsToRent.get(selectedIndex).getReturnDate() + "");
+            clientNameFld.setText(carsToRent.get(selectedIndex).getCustomerName() + "");
 
         } else {
 
-            //JOptionPane.showMessageDialog(null, "This car has been bought already");
+            
         }
     }
 
@@ -223,7 +191,8 @@ public class RentCar extends JFrame {
         carsToRent.get(selectedIndex).setRentalDate(rentalDateFld.getText()); // tutaj dodaje do listy 
         carsToRent.get(selectedIndex).setReturnDate(returnDateFld.getText());
         carsToRent.get(selectedIndex).setCustomerName(clientNameFld.getText());
-        carsToRent.get(selectedIndex).setOnLoan(true);
+        carsToRent.get(selectedIndex).setOnLoan(false); 
+        
         updateCarToRentToFile();
 
     }

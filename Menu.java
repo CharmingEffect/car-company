@@ -8,19 +8,13 @@ public class Menu extends JFrame {
   ImageIcon iconMain = new ImageIcon("icons/icon.png");
 
   private JLabel background;
-  private JMenu fileMenu;
-  private JMenu addMenu;
-  private JMenu editMenu;
-  private JMenu clientMenu;
-  private JMenu about;
+  private JMenu fileMenu, addMenu, editMenu, clientMenu, about;
   private JMenuBar menuBar;
-  private JMenuItem exitItem;
-  private JMenuItem ctbItem;
-  private JMenuItem ctbItem2;
-  private JMenuItem buyCarItem;
+  private JMenuItem exitItem, ctbItem, ctbItem2, buyCarItem;
   private JPopupMenu.Separator jSeparator2;
   private JMenuItem carToRentItem;
   private JMenuItem aboutItem;
+  private JMenuItem returnCarItem;
 
   private JMenuItem rentCarItem;
 
@@ -52,7 +46,7 @@ public class Menu extends JFrame {
     about = new JMenu();
     aboutItem = new JMenuItem();
     rentCarItem = new JMenuItem();
-    
+    returnCarItem = new JMenuItem();
 
     carToRentItem = new JMenuItem();
 
@@ -83,6 +77,9 @@ public class Menu extends JFrame {
     rentCarItem.setText("Rent car");
     clientMenu.add(rentCarItem);
 
+    returnCarItem.setText("Return Car");
+    clientMenu.add(returnCarItem);
+
     menuBar.add(clientMenu);
     setJMenuBar(menuBar);
 
@@ -93,7 +90,6 @@ public class Menu extends JFrame {
    
    aboutItem.setText("About");
    about.add(aboutItem);
-   
    
    menuBar.add(about);
 
@@ -112,6 +108,7 @@ public class Menu extends JFrame {
     about.setIcon(new ImageIcon(getClass().getResource("/icons/about.png")));
     aboutItem.setIcon(new ImageIcon(getClass().getResource("/icons/about.png")));
     rentCarItem.setIcon(new ImageIcon(getClass().getResource("/icons/rentcar.png")));
+    returnCarItem.setIcon(new ImageIcon(getClass().getResource("/icons/returnCar.png")));
     getContentPane().add(background);
 
     background.setIcon(new ImageIcon(getClass().getResource("/icons/car.png")));
@@ -174,6 +171,16 @@ public class Menu extends JFrame {
         RentCar rentCar = new RentCar();
         rentCar.setVisible(true);
         rentCar.setLocationRelativeTo(null);
+       
+      }
+
+    });
+
+    returnCarItem.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent evt) {
+        ReturnCar returnCar = new ReturnCar ();
+        returnCar.setVisible(true);
+        returnCar.setLocationRelativeTo(null);
        
       }
 
