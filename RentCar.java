@@ -219,8 +219,8 @@ public class RentCar extends JFrame {
         int selectedIndex = carList.getSelectedIndex();
         carsToRent.get(selectedIndex).setRentalDate(rentalDateFld.getText()); // tutaj dodaje do listy 
         carsToRent.get(selectedIndex).setReturnDate(returnDateFld.getText());
-        carsToRent.get(selectedIndex).setReturnDate(clientNameFld.getText());
-        carsToRent.remove(selectedIndex).setOnLoan(true); // zmiana tego toutaj nie chce ma zniknac!
+        carsToRent.get(selectedIndex).setCustomerName(clientNameFld.getText());
+        carsToRent.remove(selectedIndex).setOnLoan(true); 
         updateCarToRentToFile();
 
     }
