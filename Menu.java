@@ -86,7 +86,7 @@ public class Menu extends JFrame {
    carToRentItem.setText("Car to rent");
    addMenu.add(carToRentItem);
 
-   about.setText("Help");
+   about.setText("Info");
    
    aboutItem.setText("About");
    about.add(aboutItem);

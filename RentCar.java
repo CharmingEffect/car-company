@@ -32,7 +32,7 @@ public class RentCar extends JFrame {
 
     private JTextArea descriptionCurrentLbl;
     private JLabel adminFeeCurrentLbl;
-    private JLabel dailyRateCurrentLbl;
+    private JLabel dailyRateCurrentLbl, returnDateLblInfo, returnDateLblCurrentInfo;
     private JTextField rentalDateFld;
     private JTextField returnDateFld;
     private JTextField clientNameFld;
@@ -99,7 +99,7 @@ public class RentCar extends JFrame {
     private void initGui() {
         this.setPreferredSize(new Dimension(450, 450));
         this.setTitle("Choose and rent the car");
-        // this.setResizable(false);
+        this.setResizable(false);
         carListScroll = new JScrollPane();
         carList = new JList<>();
 
@@ -177,6 +177,16 @@ public class RentCar extends JFrame {
 
         carListScroll.setViewportView(carList);
 
+        //info afer clear
+
+        returnDateLblInfo = new JLabel("<html>This car is not available. <br> Should be returned on :<html>");
+        panel.add(returnDateLblInfo);
+        returnDateLblInfo.setBounds(230, 30, 200, 100);
+
+        returnDateLblCurrentInfo = new JLabel();
+        panel.add(returnDateLblCurrentInfo);
+        returnDateLblCurrentInfo.setBounds(250, 100, 100, 20);
+
         carList.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 carListAction();
@@ -192,7 +202,7 @@ public class RentCar extends JFrame {
             }
         });
 
-       // pack();
+        pack();
     }
 
 private void clear(){
@@ -201,9 +211,36 @@ private void clear(){
     descriptionCurrentLbl.setVisible(false);
     adminFeeCurrentLbl.setVisible(false);
     adminFeeLbl.setVisible(false);
-    
-
+    rentalDateFld.setVisible(false);
+    rentalDateLbl.setVisible(false);
+    returnDateLbl.setVisible(false);
+    returnDateFld.setVisible(false);
+    dailyRateCurrentLbl.setVisible(false);
+    dailyRateLbl.setVisible(false);
+    clientNameFld.setVisible(false);
+    clientNameLbl.setVisible(false);
+    rentButton.setVisible(false);
 }
+
+private void display(){
+    descriptionLbl.setVisible(true);
+    descriptionCurrentLbl.setVisible(true);
+    adminFeeCurrentLbl.setVisible(true);
+    adminFeeLbl.setVisible(true);
+    rentalDateFld.setVisible(true);
+    rentalDateLbl.setVisible(true);
+    returnDateLbl.setVisible(true);
+    returnDateFld.setVisible(true);
+    dailyRateCurrentLbl.setVisible(true);
+    dailyRateLbl.setVisible(true);
+    clientNameFld.setVisible(true);
+    clientNameLbl.setVisible(true);
+    rentButton.setVisible(true);
+}
+
+
+
+
 
 
     private void carListAction() {
@@ -214,17 +251,19 @@ private void clear(){
             descriptionCurrentLbl.setText(carsToRent.get(selectedIndex).getDescription());
             adminFeeCurrentLbl.setText(carsToRent.get(selectedIndex).getAdminFee() + "");
             dailyRateCurrentLbl.setText(carsToRent.get(selectedIndex).getDailyRate() + "");
-            descriptionLbl.setVisible(true);
+            display();
+
+            returnDateLblInfo.setVisible(false);
+            returnDateLblCurrentInfo.setVisible(false);
 
         }else{
             clear();
-
-
+            returnDateLblCurrentInfo.setText(carsToRent.get(selectedIndex).getReturnDate());
+            returnDateLblInfo.setVisible(true);
+            returnDateLblCurrentInfo.setVisible(true);
 
 
         }
-
-
         
     }
 

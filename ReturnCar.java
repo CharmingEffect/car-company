@@ -49,11 +49,11 @@ public class ReturnCar extends JFrame {
         String[] carsToRentArray = new String[carsToRent.size()];
 
         for (int i = 0; i < carsToRent.size(); i++) {
-
+           
             carsToRentArray[i] = carsToRent.get(i).getCarName();
 
             listModel.addElement(carsToRentArray[i]);
-
+            
         }
 
         carList.setModel(listModel);
@@ -174,23 +174,17 @@ public class ReturnCar extends JFrame {
     private void carListAction() {
         int selectedIndex = carList.getSelectedIndex();
 
-        if (carsToRent.get(selectedIndex).isOnLoan() == true) {
-
             rentalDateFld.setText(carsToRent.get(selectedIndex).getRentalDate() + "");
             returnDateFld.setText(carsToRent.get(selectedIndex).getReturnDate() + "");
             clientNameFld.setText(carsToRent.get(selectedIndex).getCustomerName() + "");
 
-        } else {
-
-            
-        }
     }
 
     private void rentCarButtonAction(ActionEvent evt) {
         int selectedIndex = carList.getSelectedIndex();
-        carsToRent.get(selectedIndex).setRentalDate(rentalDateFld.getText()); // tutaj dodaje do listy 
-        carsToRent.get(selectedIndex).setReturnDate(returnDateFld.getText());
-        carsToRent.get(selectedIndex).setCustomerName(clientNameFld.getText());
+        carsToRent.get(selectedIndex).setRentalDate(""); // tutaj dodaje do listy 
+        carsToRent.get(selectedIndex).setReturnDate("");
+        carsToRent.get(selectedIndex).setCustomerName("");
         carsToRent.get(selectedIndex).setOnLoan(false); 
         
         updateCarToRentToFile();
