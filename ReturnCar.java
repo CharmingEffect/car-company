@@ -174,10 +174,16 @@ public class ReturnCar extends JFrame {
     private void carListAction() {
         int selectedIndex = carList.getSelectedIndex();
 
+        if(carsToRent.get(selectedIndex).isOnLoan() == true){
             rentalDateFld.setText(carsToRent.get(selectedIndex).getRentalDate() + "");
             returnDateFld.setText(carsToRent.get(selectedIndex).getReturnDate() + "");
             clientNameFld.setText(carsToRent.get(selectedIndex).getCustomerName() + "");
+        } else {
 
+            
+
+
+        }
     }
 
     private void rentCarButtonAction(ActionEvent evt) {
