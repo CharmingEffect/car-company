@@ -9,27 +9,9 @@ import java.awt.event.ActionListener;
 public class AddCarToRent extends JFrame
 {
    // initialization of the variables / components
-
     //labels
-    private JLabel carNameLbl;
-    private JLabel descriptionLbl;
-
-    private JLabel rentalDateLbl;
-    private JLabel returnDateLbl;
-    private JLabel adminFeeLbl;
-    private JLabel numberOfDaysLbl;
-    private JLabel dailyRateLbl;
-
-    //fields
-    private JTextField carNameFld;
-    private JTextField descriptionFld;
-
-    private JTextField rentalDateFld;
-    private JTextField returnDateFld;
-    private JTextField adminFeeFld;
-    private JTextField numberOfDaysFld;
-    private JTextField dailyRateFld;
-    
+    private JLabel carNameLbl, descriptionLbl, adminFeeLbl, dailyRateLbl;
+    private JTextField carNameFld,  descriptionFld, adminFeeFld, dailyRateFld;
     private JButton addButton;
     
     ArrayList<CarToRent> carsToRent; // it creates set with the cars to rent
@@ -46,8 +28,6 @@ public class AddCarToRent extends JFrame
     
     // intittalization of the components of the graphical user interface
     private void initGui(){
-
-        
         //labels
         
         carNameLbl = new JLabel("Car's name:");
@@ -69,9 +49,6 @@ public class AddCarToRent extends JFrame
        
         setTitle("Add car to rent");
         setResizable(false);
-        
-       
-    
         
         JPanel newPanel = new JPanel(new GridBagLayout());
          

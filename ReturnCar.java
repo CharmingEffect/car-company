@@ -132,7 +132,7 @@ public class ReturnCar extends JFrame {
         
         carAvailable = new JLabel("This car is available");
         panel.add(carAvailable);
-        carAvailable.setBounds(200, 100, 200, 100);
+        carAvailable.setBounds(200, 20, 200, 100);
 
         toPayLbl = new JLabel("For this car shoud be paid in total: ");
         panel.add(toPayLbl);

@@ -2,6 +2,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.io.EOFException;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -24,7 +25,9 @@ public class Menu extends JFrame {
 
   private JMenuItem rentCarItem;
   private ArrayList<CarToBuy> carsToBuy;
-
+  private ImageIcon iconMsg;
+  private File carsToBuyFile;
+  private File carsToRentFile;
   /**
    * Creates new form Menu
    */
@@ -33,8 +36,9 @@ public class Menu extends JFrame {
     setTitle("Car Company");
     setIconImage(iconMain.getImage());
     carsToBuy = new ArrayList<CarToBuy>();
-    populateArrayList();
-    
+    iconMsg = new ImageIcon("icons/face_palm.png");
+    carsToBuyFile = new File("carsToBuy.dat");
+    carsToRentFile = new File("carsToRent.dat");
   }
 
   private void initGui() {
@@ -145,31 +149,41 @@ public class Menu extends JFrame {
     });
 
     ctbItem2.addActionListener(new ActionListener() {
-    
-
       public void actionPerformed(ActionEvent evt) {
 
-if(carsToBuy.isEmpty()){
-  
-  System.out.println("The is no cars in array so cannot edit. Open the program again if you added first car!");
 
-
-}else {
+       
+        if(carsToBuyFile.exists() && !carsToBuyFile.isDirectory()) { 
 
         EditCarToBuy editCar = new EditCarToBuy();
         editCar.setVisible(true);
         editCar.setLocationRelativeTo(null);
-}
-       
+ 
+        } else {
+
+          JOptionPane.showMessageDialog(null, "The file does not exists. Please add a car", "Error. File not found", JOptionPane.PLAIN_MESSAGE, iconMsg );
+
+        }
+
+        
     }
     });
   
 
     buyCarItem.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
-        BuyCar buyCar = new BuyCar();
-        buyCar.setVisible(true);
-        buyCar.setLocationRelativeTo(null);
+
+        if(carsToBuyFile.exists() && !carsToBuyFile.isDirectory()) { 
+        
+         
+
+          BuyCar buyCar = new BuyCar();
+          buyCar.setVisible(true);
+          buyCar.setLocationRelativeTo(null);
+        } else {
+
+          JOptionPane.showMessageDialog(null, "The file does not exists. Please add a car", "Error. File not found", JOptionPane.PLAIN_MESSAGE, iconMsg );
+        }
       }
 
     });
@@ -188,19 +202,34 @@ if(carsToBuy.isEmpty()){
     
     rentCarItem.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
+
+        if(carsToRentFile.exists() && !carsToRentFile.isDirectory()) {
+       
         RentCar rentCar = new RentCar();
         rentCar.setVisible(true);
         rentCar.setLocationRelativeTo(null);
-       
+        } else {
+
+          JOptionPane.showMessageDialog(null, "The file does not exists. Please add a car", "Error. File not found", JOptionPane.PLAIN_MESSAGE, iconMsg );
+        }
       }
 
     });
 
     returnCarItem.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
+        if(carsToRentFile.exists() && !carsToRentFile.isDirectory()) {
+
+        
         ReturnCar returnCar = new ReturnCar ();
         returnCar.setVisible(true);
         returnCar.setLocationRelativeTo(null);
+
+         } else {
+
+          JOptionPane.showMessageDialog(null, "The file does not exists. Please add a car", "Error. File not found", JOptionPane.PLAIN_MESSAGE, iconMsg );
+
+        }
        
       }
 
@@ -213,38 +242,5 @@ if(carsToBuy.isEmpty()){
 
     });
   }
-  public void populateArrayList() {   //populate array list 
-
-    try {
-
-        FileInputStream file = new FileInputStream("carsToBuy.dat");
-        ObjectInputStream inputFile = new ObjectInputStream(file);
-
-        boolean endOfFile = false;
-
-        while (!endOfFile) {
-
-            try {
-
-                carsToBuy.add((CarToBuy) inputFile.readObject());
-
-            } catch (EOFException e) {
-
-                endOfFile = true;
-
-            } catch (Exception f) {
-
-                JOptionPane.showMessageDialog(null, f.getMessage());
-            }
-        }
-        inputFile.close();
-
-    } catch (IOException e) {
-
-        JOptionPane.showMessageDialog(null, e.getMessage());
-
-    }
-
-}
 
 }

@@ -26,9 +26,8 @@ public class BuyCar extends JFrame {
     private JList<String> carList;
 
     private JScrollPane carListScroll;
-
     private JTextArea descriptionCurrentLbl;
-    private JLabel priceCurrentLbl;
+    private JLabel priceCurrentLbl, carNotAvailable;
     private JLabel regYearCurrentLbl;
     private JLabel mileageCurrentLbl;
     private DefaultListModel listModel;
@@ -169,6 +168,12 @@ public class BuyCar extends JFrame {
         panel.add(carListScroll);
         carListScroll.setBounds(25, 70, 150, 200);
 
+        carNotAvailable = new JLabel("This car has been already sold.");
+        panel.add(carNotAvailable);
+        carNotAvailable.setBounds(200, 20, 200, 100);
+
+
+
      
 
         carList.addListSelectionListener(new ListSelectionListener() {
@@ -198,10 +203,37 @@ public class BuyCar extends JFrame {
             regYearCurrentLbl.setText(carsToBuy.get(selectedIndex).getRegYear() + "");
             mileageCurrentLbl.setText(carsToBuy.get(selectedIndex).getMileage() + "");
             
+            mileageLbl.setVisible(true);
+            regYearLbl.setVisible(true);
+            priceLbl.setVisible(true);
+            priceCurrentLbl.setVisible(true);
+            customerNameFld.setVisible(true);
+            customerNameLbl.setVisible(true);
+            buyButton.setVisible(true);
+            descriptionLbl.setVisible(true);
+            descriptionCurrentLbl.setVisible(true);
+            regYearCurrentLbl.setVisible(true);
+            mileageCurrentLbl.setVisible(true);
+            carNotAvailable.setVisible(false);
+
 
         } else {
 
-            JOptionPane.showMessageDialog(null, "This car has been bought already");
+            mileageLbl.setVisible(false);
+            regYearLbl.setVisible(false);
+            priceLbl.setVisible(false);
+            priceCurrentLbl.setVisible(false);
+            customerNameFld.setVisible(false);
+            customerNameLbl.setVisible(false);
+            buyButton.setVisible(false);
+            descriptionLbl.setVisible(false);
+            descriptionCurrentLbl.setVisible(false);
+            regYearCurrentLbl.setVisible(false);
+            mileageCurrentLbl.setVisible(false);
+            carNotAvailable.setVisible(true);
+
+
+           
         }
     }
 
@@ -214,7 +246,7 @@ public class BuyCar extends JFrame {
 
        int selectedIndex = carList.getSelectedIndex();
        carsToBuy.get(selectedIndex).setCustomerName(customerNameFld.getText());
-       carsToBuy.remove(selectedIndex).setSold(true);
+       carsToBuy.get(selectedIndex).setSold(true);
        updateCarToBuyToFile();
     
     }

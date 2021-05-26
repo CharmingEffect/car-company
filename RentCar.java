@@ -211,6 +211,7 @@ private void clear(){
     clientNameFld.setVisible(false);
     clientNameLbl.setVisible(false);
     rentButton.setVisible(false);
+    returnDateLblInfo.setVisible(false);
 }
 
 private void display(){
@@ -227,6 +228,8 @@ private void display(){
     clientNameFld.setVisible(true);
     clientNameLbl.setVisible(true);
     rentButton.setVisible(true);
+    returnDateLblInfo.setVisible(true);
+
 }
 
 

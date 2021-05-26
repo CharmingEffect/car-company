@@ -290,7 +290,7 @@ private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {
 
  // action method for delete  button
 
-private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {                                          
+private void deleteBtnActionPerformed(ActionEvent evt) {                                          
     int selectedIndex = listCarsComboBox.getSelectedIndex();
     carsToBuy.remove(selectedIndex);
     deleteCarFromFile();
