@@ -1,6 +1,12 @@
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.awt.event.*;
 
 public class Menu extends JFrame {
@@ -17,16 +23,17 @@ public class Menu extends JFrame {
   private JMenuItem returnCarItem;
 
   private JMenuItem rentCarItem;
-
+  private ArrayList<CarToBuy> carsToBuy;
 
   /**
    * Creates new form Menu
    */
   public Menu() {
     initGui();
-   
     setTitle("Car Company");
     setIconImage(iconMain.getImage());
+    carsToBuy = new ArrayList<CarToBuy>();
+    populateArrayList();
     
   }
 
@@ -131,19 +138,32 @@ public class Menu extends JFrame {
         AddCarToBuy addCar = new AddCarToBuy();
         addCar.setVisible(true);
         addCar.setLocationRelativeTo(null);
+        
       }
 
 
     });
 
     ctbItem2.addActionListener(new ActionListener() {
+    
+
       public void actionPerformed(ActionEvent evt) {
+
+if(carsToBuy.isEmpty()){
+  
+  System.out.println("The is no cars in array so cannot edit. Open the program again if you added first car!");
+
+
+}else {
+
         EditCarToBuy editCar = new EditCarToBuy();
         editCar.setVisible(true);
         editCar.setLocationRelativeTo(null);
-      }
-
+}
+       
+    }
     });
+  
 
     buyCarItem.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
@@ -193,5 +213,38 @@ public class Menu extends JFrame {
 
     });
   }
+  public void populateArrayList() {   //populate array list 
+
+    try {
+
+        FileInputStream file = new FileInputStream("carsToBuy.dat");
+        ObjectInputStream inputFile = new ObjectInputStream(file);
+
+        boolean endOfFile = false;
+
+        while (!endOfFile) {
+
+            try {
+
+                carsToBuy.add((CarToBuy) inputFile.readObject());
+
+            } catch (EOFException e) {
+
+                endOfFile = true;
+
+            } catch (Exception f) {
+
+                JOptionPane.showMessageDialog(null, f.getMessage());
+            }
+        }
+        inputFile.close();
+
+    } catch (IOException e) {
+
+        JOptionPane.showMessageDialog(null, e.getMessage());
+
+    }
+
+}
 
 }

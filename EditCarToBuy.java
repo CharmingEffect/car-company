@@ -224,9 +224,6 @@ private void initGui(){
   constraints.gridx = 1;
   newPanel.add(mileageField, constraints);
 
-
-
- 
   constraints.gridx = 1;
   constraints.gridy = 5;
   constraints.gridwidth = 1;
@@ -303,16 +300,23 @@ private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {
 
 //action method for 
 
-private void listCarsActionPerformed(ActionEvent evt) {                                           
+private void listCarsActionPerformed(ActionEvent evt) {   
+    
+
     int selectedIndex = listCarsComboBox.getSelectedIndex();
     descriptionField.setText(carsToBuy.get(selectedIndex).getDescription());
     priceField.setText(carsToBuy.get(selectedIndex).getPrice() + "");
     regYearField.setText(carsToBuy.get(selectedIndex).getRegYear() + "");
     mileageField.setText(carsToBuy.get(selectedIndex).getMileage() + "");
 
+   
+        
+    
+}
+
 }   
 
 
-}
+
 
 
