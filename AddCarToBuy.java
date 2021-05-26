@@ -157,7 +157,7 @@ public class AddCarToBuy extends JFrame
         
         CarToBuy carToBuy = new CarToBuy(customerName, price, regYear, mileage, sold, carName, description);   
         carsToBuy.add(carToBuy);     
-        saveCarToBuyToFile();     
+        saveCarToBuyToFile();   
         
         }
     }                                        

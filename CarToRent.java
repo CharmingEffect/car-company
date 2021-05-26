@@ -28,6 +28,7 @@ public class CarToRent extends Car implements Serializable {
         this.onLoan = onLoan;
     }
 
+
     public String getRentalDate() {
         return rentalDate;
     }
@@ -83,10 +84,6 @@ public class CarToRent extends Car implements Serializable {
     public void setOnLoan(boolean onLoan) {
         this.onLoan = onLoan;
     }
-
-
-
-    
-    
+  
 
 }

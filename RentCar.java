@@ -3,38 +3,26 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.*;
-
 public class RentCar extends JFrame {
 
     // init variables
-
     ArrayList<CarToRent> carsToRent;
-
     private JButton rentButton;
-
     private JLabel labelInfo;
-
-    private JLabel descriptionLbl;
-    private JLabel adminFeeLbl;
-    private JLabel dailyRateLbl;
-    private JLabel rentalDateLbl;
-    private JLabel returnDateLbl;
-    private JLabel clientNameLbl;
-
+    private JLabel descriptionLbl, adminFeeLbl, dailyRateLbl, returnDateLbl, clientNameLbl, rentalDateLbl;
     private JList<String> carList;
-
     private JScrollPane carListScroll;
-
     private JTextArea descriptionCurrentLbl;
     private JLabel adminFeeCurrentLbl;
     private JLabel dailyRateCurrentLbl, returnDateLblInfo, returnDateLblCurrentInfo;
-    private JTextField rentalDateFld;
-    private JTextField returnDateFld;
+    private JTextField rentalDateFld, returnDateFld;
     private JTextField clientNameFld;
 
     DefaultListModel listModel = new DefaultListModel();
@@ -141,11 +129,14 @@ public class RentCar extends JFrame {
 
         // change for formatted jlabel 
 
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        //JFormattedTextField dateTextField = new JFormattedTextField(format);
+
         rentalDateLbl = new JLabel("Rental date:");
         panel.add(rentalDateLbl);
         rentalDateLbl.setBounds(200, 200, 200, 100);
 
-        rentalDateFld = new JTextField(15);
+        rentalDateFld = new JFormattedTextField(format);
         panel.add(rentalDateFld);
         rentalDateFld.setBounds(310, 242, 100, 20);
 
@@ -153,7 +144,7 @@ public class RentCar extends JFrame {
         panel.add(returnDateLbl);
         returnDateLbl.setBounds(200, 230, 200, 100);
 
-        returnDateFld = new JTextField(15);
+        returnDateFld = new JFormattedTextField(format);
         panel.add(returnDateFld);
         returnDateFld.setBounds(310, 272, 100, 20);
 
@@ -268,13 +259,19 @@ private void display(){
     }
 
     private void rentCarButtonAction(ActionEvent evt) {
+        if(rentalDateFld.getText().isEmpty() || returnDateFld.getText().isEmpty() || clientNameFld.getText().isEmpty()){
+            ImageIcon iconMsg = new ImageIcon("icons/face_palm.png");
+            JOptionPane.showMessageDialog(null, "Please fill all fields", "Error", JOptionPane.PLAIN_MESSAGE, iconMsg );
+
+        } else {
+
         int selectedIndex = carList.getSelectedIndex();
         carsToRent.get(selectedIndex).setRentalDate(rentalDateFld.getText()); // tutaj dodaje do listy 
         carsToRent.get(selectedIndex).setReturnDate(returnDateFld.getText());
         carsToRent.get(selectedIndex).setCustomerName(clientNameFld.getText());
         carsToRent.get(selectedIndex).setOnLoan(true);
         updateCarToRentToFile();
-
+        }
     }
 
     // The format for date is YYYY-MM-DD. 

@@ -5,11 +5,12 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.awt.*;
-import java.beans.XMLDecoder;
 import java.awt.event.*;
 
 public class ReturnCar extends JFrame {
@@ -17,25 +18,13 @@ public class ReturnCar extends JFrame {
     // init variables
 
     ArrayList<CarToRent> carsToRent;
-
     private JButton returnCarButton;
-
-    private JLabel labelInfo;
-
-    private JLabel rentalDateLbl;
-    private JLabel returnDateLbl;
-    private JLabel clientNameLbl;
-
+    private JLabel labelInfo, rentalDateLbl, returnDateLbl;
     private JList<String> carList;
-
     private JScrollPane carListScroll;
-
-    private JTextArea descriptionCurrentLbl;
-    private JLabel adminFeeCurrentLbl;
-    private JLabel dailyRateCurrentLbl;
-    private JLabel rentalDateFld , carAvailable;
-    private JLabel returnDateFld;
-    private JLabel clientNameFld;
+    private JLabel carAvailable, toPayLbl, toPayCurrentLbl;
+    private JLabel rentalDateFld, returnDateFld;
+    String totalToBePaid;
 
     DefaultListModel listModel = new DefaultListModel();
 
@@ -45,7 +34,6 @@ public class ReturnCar extends JFrame {
 
         carsToRent = new ArrayList<CarToRent>();
         populateArrayList();
-
         String[] carsToRentArray = new String[carsToRent.size()];
 
         for (int i = 0; i < carsToRent.size(); i++) {
@@ -113,7 +101,6 @@ public class ReturnCar extends JFrame {
         panel.add(labelInfo);
         labelInfo.setBounds(25, 0, 200, 100);
 
-
         // change for formatted jlabel 
 
         rentalDateLbl = new JLabel("This car has been rented on: ");
@@ -134,14 +121,6 @@ public class ReturnCar extends JFrame {
 
         //-----------
 
-        clientNameLbl = new JLabel("Rented by: ");
-        panel.add(clientNameLbl);
-        clientNameLbl.setBounds(200, 100, 200, 100);
-
-        clientNameFld = new JLabel();
-        panel.add(clientNameFld);
-        clientNameFld.setBounds(280, 140, 100, 20);
-
         carListScroll.setViewportView(carList);
         panel.add(carListScroll);
         carListScroll.setBounds(25, 70, 150, 300);
@@ -153,7 +132,17 @@ public class ReturnCar extends JFrame {
         
         carAvailable = new JLabel("This car is available");
         panel.add(carAvailable);
-        carAvailable.setBounds(200, 20, 200, 100);
+        carAvailable.setBounds(200, 100, 200, 100);
+
+        toPayLbl = new JLabel("For this car shoud be paid in total: ");
+        panel.add(toPayLbl);
+        toPayLbl.setBounds(200, 100, 200, 100);
+
+        toPayCurrentLbl = new JLabel();
+        panel.add(toPayCurrentLbl);
+        toPayCurrentLbl.setBounds(280, 160, 100, 20);
+
+
 
         carListScroll.setViewportView(carList);
 
@@ -178,33 +167,36 @@ public class ReturnCar extends JFrame {
 
     private void carListAction() {
         int selectedIndex = carList.getSelectedIndex();
-
+        
+        
         if(carsToRent.get(selectedIndex).isOnLoan() == true){
             rentalDateFld.setText(carsToRent.get(selectedIndex).getRentalDate() + "");
             returnDateFld.setText(carsToRent.get(selectedIndex).getReturnDate() + "");
-            clientNameFld.setText(carsToRent.get(selectedIndex).getCustomerName() + "");
-            System.out.print(carsToRent.get(selectedIndex).getRentalDate() + "  ");
-            System.out.print(carsToRent.get(selectedIndex).getReturnDate() + "  ");
-            getTotalForPay();
+            toPayCurrentLbl.setText("£" + getTotalForPay());
+            //System.out.print(carsToRent.get(selectedIndex).getRentalDate() + "  ");
+            //System.out.print(carsToRent.get(selectedIndex).getReturnDate() + "  ");
             
+            System.out.println(getTotalForPay());
 
+            
+            toPayCurrentLbl.setVisible(true);
             rentalDateLbl.setVisible(true);
-            returnDateLbl.setVisible(true);
-            clientNameLbl.setVisible(true);
+            returnDateLbl.setVisible(true);   
             rentalDateFld.setVisible(true);
-            returnDateFld.setVisible(true);
-            clientNameFld.setVisible(true);
+            returnDateFld.setVisible(true);  
             returnCarButton.setVisible(true);
             carAvailable.setVisible(false);
+            toPayLbl.setVisible(true);
         } else {
             rentalDateLbl.setVisible(false);
             returnDateLbl.setVisible(false);
-            clientNameLbl.setVisible(false);
             rentalDateFld.setVisible(false);
             returnDateFld.setVisible(false);
-            clientNameFld.setVisible(false);
+            toPayLbl.setVisible(false);
+            toPayCurrentLbl.setVisible(false);
             returnCarButton.setVisible(false);
             carAvailable.setVisible(true);
+            toPayCurrentLbl.setVisible(false);
 
 
             
@@ -244,7 +236,6 @@ public String getTotalForPay(){
     int numberOfDays = getDaysBetween(carsToRent.get(selectedIndex).getRentalDate(), carsToRent.get(selectedIndex).getReturnDate());
     int total = numberOfDays * carsToRent.get(selectedIndex).getDailyRate() + carsToRent.get(selectedIndex).getAdminFee();
     String totalForPay = Integer.toString(total);
- 
 
     return totalForPay;
 
@@ -267,7 +258,7 @@ public String getTotalForPay(){
 
            
 
-            JOptionPane.showMessageDialog(null, "Car to rent has been succesfully returned!. You have to pay: " + getTotalForPay());
+            JOptionPane.showMessageDialog(null, "Car to rent has been succesfully returned!.");
             this.dispose();
 
         } catch (IOException e) {
